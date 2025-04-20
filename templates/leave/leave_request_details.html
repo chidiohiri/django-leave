@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center ">
+        <h6 class="mb-0">Leave Request Details</h6>
+
+    </div>
+    <div class="card-body">
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Created by</label>
+                                <input type="text" value="{{leave_request.created_by.username|title}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Created On</label>
+                                <input type="text" value="{{leave_request.created_on|date}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Status</label>
+                                <input type="text" value="{{leave_request.status}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Leave Type</label>
+                                <input type="text" value="{{leave_request.leave}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Title</label>
+                                <input type="text" value="{{leave_request.title}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Start Date</label>
+                                <input type="text" value="{{leave_request.start_date}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">End Date</label>
+                                <input type="text" value="{{leave_request.end_date}}" class="form-control"
+                                    id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Comment</label>
+                        <input type="text" value="{{leave_request.comment}}" class="form-control"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Upload</label>
+                        {% if leave_request.upload %}
+                        <input type="text" value="{{leave_request.upload.url}}" class="form-control"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" readonly>
+                        {% else %}
+                        <input type="text" value="Nothing to show" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" readonly>
+                        {% endif %}
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                {% if request.user.is_hr %}
+                                <li><a type="submit" href="{% url 'approve-leave-request' leave_request.pk %}"
+                                        class="dropdown-item">Approve</a></li>
+                                <li><a type="submit" href="{% url 'reject-leave-request' leave_request.pk %}"
+                                        class="dropdown-item text-danger">Reject</a></li>
+                                {% else %}
+                                <li><a type="submit" href="{% url 'update-leave-request' leave_request.pk %}"
+                                        class="dropdown-item">Update</a></li>
+                                <li><a type="submit" href="{% url 'delete-leave-request' leave_request.pk %}"
+                                        class="dropdown-item text-danger">Delete</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if leave_request.upload %}
+                    <a href="{{leave_request.upload.url}}" class="btn btn-outline-secondary">Download Attachment</a>
+                    {% endif %}
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Create Leave Request</h2>
+            <p>
+                You can create a leave request and specify details about the leave. The HR Team would review
+                and get back to you on an update. If you experience any issue with the leave, please contact
+                IT support.
+            </p>
+            <a href="{% url 'create-leave-request' %}" class="btn btn-outline-light" type="button">Create Request</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Manage Requests</h2>
+            <p>
+                Here you can manage all your requests - update, delete and view all your requests over time.
+                Managing your leave requests, including seeing all leave request status.
+            </p>
+            <a href="{% url 'my-leave-requests' %}" class="btn btn-outline-secondary" type="button">Manage</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
