@@ -27,7 +27,7 @@ Create and initialize a virtual environment (optional)
 Clone the Repository
 
     clone https://github.com/chidiohiri/django-leave.git
-    cd django-inventory
+    cd django-leave
 
 Move the project into the virtual environment, then install dependencies. The project dependencies can found in [requirements.txt](requirements.txt)
 
